@@ -5,15 +5,3 @@ $(document).ready(function(){
     // As like as error message
     $(".success-message").delay(3200).fadeOut(300);
 });
-
-
-// Destroy session and logout
-function logout() {
-    Session.Clear();
-    Session.Abandon();
-
-    // redirect to home page
-    console.log("I am on JS");
-    // finally return something :-)
-    return true;
-}
