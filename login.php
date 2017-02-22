@@ -1,3 +1,13 @@
+<?php
+    ob_start();
+    session_start();
+
+    // Check previous session untill is destroyed
+    if (isset($_SESSION['username'])) {
+        // logged in
+        header('Location: settings.php');
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +28,16 @@
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // echo $email;
-            // echo "<br>";
-            // echo $password;
-
             $get_login_sql = "SELECT * FROM users WHERE email='".$email."' AND password='".$password."'";
 
             $login_success = $conn->query($get_login_sql);
             if($login_success->num_rows == 1){
+                // Check the session and add into session
+                $_SESSION['valid'] = true;
+                $_SESSION['timeout'] = time();
+                $_SESSION['username'] = $email;
+
+                // Redirect to settings page
                 header('Location: settings.php');
             }else {
                 echo '<p class="error-message">Credientials are not correct!!</p>';
