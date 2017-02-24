@@ -1,3 +1,17 @@
+<?php
+    include 'helper/config.php';
+
+    session_start();
+
+    if (isset($_SESSION['username'])) {
+        // logged in
+        // Something will happen here....
+    } else {
+        // not logged in
+        header('Location: login.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,22 +25,22 @@
 <body class="container">
     <!-- Config included -->
 	<?php 
-        include 'helper/config.php';
         include 'helper/navbar.html';
-
-        session_start();
-
-        if (isset($_SESSION['username'])) {
-            // logged in
-            // Something will happen here....
-        } else {
-            // not logged in
-            header('Location: login.php');
-        }
     ?>
 
-    <div>
+    <div class="row">
         <h1 class="text-center">Settings</h1>
+        <br/>
+        <div class="col-sm-12 col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <p class="text-22px text-center">Allowed Branched</p>
+                </div>
+                <div class="panel-body">
+                    <p class="text-center">All the settings will be here :)</p>
+                </div>
+            </div>
+        </div>
     </div>
 
      

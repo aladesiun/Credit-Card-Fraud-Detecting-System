@@ -1,5 +1,7 @@
 <!-- After submiting the form -->
 <?php
+	// Initialize the session
+	session_start();
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$card_number = $_POST['card_number'];
 		$pin = $_POST['pin'];
@@ -40,7 +42,9 @@
 				$allowed_branches = $row[1];
 
 				if(strpos($allowed_branches, $branch_id)) {
-					echo '<p class="success-message">Successfully withdrawn :)</p>';
+					// echo '<p class="success-message">Successfully withdrawn :)</p>';
+					$_SESSION['account'] = $card_number;
+					header("Location: transaction.php");
 				}else {
 					echo '<p class="error-message">SORRY! This Branch is not Allowed!!</p>';
 				}

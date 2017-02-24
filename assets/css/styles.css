@@ -1,3 +1,43 @@
+/************ Coundown Timer **************/
+/*
+
+ * Author - Harshen Amarnath Pandey
+ * Version - 1.0.8
+ * Release - 18th April 2015
+ * Copyright (c) 2014 - 2018 Harshen Pandey
+*/
+
+/* jquery.countdownTimer.css*/
+
+.style {
+    width: 100%;
+    font-family: sans-serif;
+    font-weight: bold;
+    border-style: solid;
+}
+
+.colorDefinition {
+    background: #000000;
+    color : #FFFFFF;
+    border-color: #F0068E;
+}
+
+.size_xl {
+    text-align: center;
+    font-size:50px;
+    border-width: 7px;
+    border-radius: 5px;
+}
+
+.size_lg {
+    text-align: center;
+    font-size:40px;
+    border-width: 7px;
+    border-radius: 5px;
+}
+
+/***************END TIMER*****************/
+
 /* Error message classes */
 .error-message {
     width: 100%;
@@ -64,4 +104,13 @@
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.form-signin-heading {
+    text-align: center;
+}
+
+/* Helper CSS */
+.text-22px {
+    font-size: 22px;
 }
