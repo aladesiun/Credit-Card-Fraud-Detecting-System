@@ -19,6 +19,12 @@
 	<link rel="stylesheet" type="text/css" href="assets/BS/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
+	<!-- Inline script only for this file -->
+	<script>
+		// Clear the session for each transaction
+		setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, 60 * 1000);
+	</script>
+
 </head>
 <body class="container">
 	<!-- Navbar included -->
@@ -27,13 +33,81 @@
 	<?php include 'helper/config.php' ?>
 
 	<div class="row">
-		<div class="col-sm-12 col-md-8">
-			<h1>Trasactions ... ...</h1>
-		</div>
+		<?php
+			if($_SERVER['REQUEST_METHOD'] == 'POST') {
+				// get data from form
+				$amount = $_POST['amount'];
+				$total_balance = $_POST['total_balance'];
+				$trans_limit = $_POST['trans_limit'];
+				$acc_table_id = $_POST['id'];
+
+				// Withdrawal business logic
+				if($amount <= $total_balance) {
+					if($amount <= $trans_limit) {
+						// update will be rest of the amount
+						$rest_amount = $total_balance - $amount;
+						$update_query = "UPDATE account SET balance=".$rest_amount." WHERE id=".$acc_table_id;
+						$conn->query($update_query);
+
+						// show success message
+						echo '<p class="success-message">Successfully Withdrawn!!</p>';
+
+					}else {
+						// show error message (when maximum limit)
+						echo '<p class="error-message">Sorry!! Maximum limit reached. Try Again!!</p>';
+					}
+				}else {
+					// show error message (When insufficient funds)
+					echo '<p class="error-message">Not Enough Fund!!</p>';
+				}
+				
+			}
+		?>
+	</div>
+
+	<div class="row">
+		<?php
+			if(isset($_SESSION['account'])) {
+				$ac_number = $_SESSION['account'];
+				$account_id = $_SESSION['account_id'];
+
+				// Get data from account table
+				$sql = "SELECT * FROM account WHERE id=".$account_id;
+				$result = $conn->query($sql);
+
+				if($result->num_rows == 1) {
+					$row = $result->fetch_row();
+					echo '
+						<div class="col-sm-12 col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3>Transaction</h3>
+								</div>
+								<div class="panel-body">
+									<form method="POST" action="" class="form-group">
+										<label>Enter Amount</label>
+										<input type="number" name="amount" class="form-control" required/>
+										<input type="hidden" name="total_balance" value="'.$row[4].'"/>
+										<input type="hidden" name="trans_limit" value="'.$row[5].'"/>
+										<input type="hidden" name="id" value="'.$row[0].'"/>
+										<br/>
+										<input class="btn btn-primary btn-block" type="submit" name="submit" value="Withdraw"/>
+									</form>
+								</div>
+							</div>
+						</div>
+					';
+				}
+			}
+		?>
 		<!-- The clock / time limit will be here -->
-		<div class="col-sm-12 col-md-4">
-			<h2>You are running out of time</h2>
+		<div class="col-sm-12 col-md-4 jumbotron pull-right">
+			<h2 class="alert-message-color">You are running out of time.</h2>
 			<div id="s_timer"></div>
+			<p class="p-t-sm f-16 alert-message-color">
+				<strong>Note:</strong> You just have 60 seconds to finish this transaction. 
+				If you missed to finish you have re-enter your AC number and PIN. 
+			</p>
 		</div>
 	</div>
 	

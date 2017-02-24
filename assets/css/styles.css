@@ -114,3 +114,15 @@
 .text-22px {
     font-size: 22px;
 }
+
+.p-t-sm {
+    padding-top: 10px;
+}
+
+.f-16 {
+    font-size: 16px;
+}
+
+.alert-message-color {
+    color: orangered;
+}

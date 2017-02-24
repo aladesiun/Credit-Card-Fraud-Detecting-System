@@ -43,7 +43,9 @@
 
 				if(strpos($allowed_branches, $branch_id)) {
 					// echo '<p class="success-message">Successfully withdrawn :)</p>';
+					// set AC num and pin to session
 					$_SESSION['account'] = $card_number;
+					$_SESSION['account_id'] = $row[4];
 					header("Location: transaction.php");
 				}else {
 					echo '<p class="error-message">SORRY! This Branch is not Allowed!!</p>';
@@ -84,7 +86,7 @@
 								<input type="password" name="pin" class="form-control" required/>
 								<input type="hidden" name="branch_id" value="'.$row["id"].'"/>
 								<br/>
-								<input class="btn btn-success" type="submit" name="submit" value="Withdraw"/>
+								<input class="btn btn-success btn-block" type="submit" name="submit" value="Withdraw"/>
 							</form>
 						</div>
 					</div>
