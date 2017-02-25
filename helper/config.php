@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "admin";  // Change the password if you need
+$password = "";  // Change the password if you need
 $database = "card";
 
 // Create connection
