@@ -126,3 +126,23 @@
 .alert-message-color {
     color: orangered;
 }
+
+.m-l-0 {
+    margin-left: 0;
+}
+
+.p-l-0 {
+    padding-left: 0;
+}
+
+.m-r-0 {
+    margin-right: 0;
+}
+
+.p-r-0 {
+    padding-right: 0;
+}
+
+.m-r-15 {
+    margin-right: 15px;
+}

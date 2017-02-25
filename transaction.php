@@ -22,7 +22,7 @@
 	<!-- Inline script only for this file -->
 	<script>
 		// Clear the session for each transaction
-		setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, 60 * 1000);
+		// setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, 60 * 1000);
 	</script>
 
 </head>
@@ -32,7 +32,7 @@
 	<!-- Config included -->
 	<?php include 'helper/config.php' ?>
 
-	<div class="row">
+	<div class="row m-r-0 m-l-0">
 		<?php
 			if($_SERVER['REQUEST_METHOD'] == 'POST') {
 				// get data from form
@@ -101,7 +101,7 @@
 			}
 		?>
 		<!-- The clock / time limit will be here -->
-		<div class="col-sm-12 col-md-4 jumbotron pull-right">
+		<div class="col-sm-12 col-md-4 jumbotron pull-right m-r-15">
 			<h2 class="alert-message-color">You are running out of time.</h2>
 			<div id="s_timer"></div>
 			<p class="p-t-sm f-16 alert-message-color">
