@@ -10,4 +10,4 @@ $(function(){
 });
 
 // Session destroy for transaction
-// setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, timeLimit * 1000);
+setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, timeLimit * 1000);

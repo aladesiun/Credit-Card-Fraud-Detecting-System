@@ -19,12 +19,6 @@
 	<link rel="stylesheet" type="text/css" href="assets/BS/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
-	<!-- Inline script only for this file -->
-	<script>
-		// Clear the session for each transaction
-		setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, 60 * 1000);
-	</script>
-
 </head>
 <body class="container">
 	<!-- Navbar included -->
