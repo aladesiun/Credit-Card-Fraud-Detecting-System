@@ -22,7 +22,7 @@
 	<!-- Inline script only for this file -->
 	<script>
 		// Clear the session for each transaction
-		// setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, 60 * 1000);
+		setTimeout(function() { window.location.href = "helper/clear_transaction.php"; }, 60 * 1000);
 	</script>
 
 </head>
@@ -48,6 +48,9 @@
 						$rest_amount = $total_balance - $amount;
 						$update_query = "UPDATE account SET balance=".$rest_amount." WHERE id=".$acc_table_id;
 						$conn->query($update_query);
+						// Now it's time to add a row on transaction table
+						$add_trans_sql = "INSERT INTO transaction (account_id, amount) VALUES (".$acc_table_id.", ".$amount.")";
+						$conn->query($add_trans_sql);
 
 						// show success message
 						echo '<p class="success-message">Successfully Withdrawn!!</p>';
@@ -117,6 +120,7 @@
 	<script type="text/javascript" src="assets/JS/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="assets/JS/jquery.countdownTimer.min.js"></script>
 	<script type="text/javascript" src="assets/JS/main.js"></script>
+	<script type="text/javascript" src="assets/JS/timer.js"></script>
 	<script type="text/javascript" src="assets/BS/js/bootstrap.min.js"></script>
 </footer>
 </html>

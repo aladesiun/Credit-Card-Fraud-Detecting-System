@@ -20,7 +20,6 @@
 <footer>
 	<!-- All the Javascript will be load here... -->
 	<script type="text/javascript" src="assets/JS/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="assets/JS/jquery.countdownTimer.min.js"></script>
 	<script type="text/javascript" src="assets/JS/main.js"></script>
 	<script type="text/javascript" src="assets/BS/js/bootstrap.min.js"></script>
 </footer>
