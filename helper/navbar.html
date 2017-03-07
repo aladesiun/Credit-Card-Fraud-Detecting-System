@@ -17,8 +17,6 @@
             <li><a href="#">Contact</a></li>
             <!-- Here we will check about login -->
             <?php
-                session_start();
-
                 if (isset($_SESSION['username'])) {
                     // logged in
                     echo '<li><a href="helper/logout.php">Logout</a></li>';
