@@ -145,3 +145,22 @@
 .m-r-15 {
     margin-right: 15px;
 }
+
+.list-head {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.mini-container {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.nice-border {
+    border: solid 1px #000000;
+    border-radius: 3px;
+}
+
+.p-a-sm {
+    padding: 3%;
+}

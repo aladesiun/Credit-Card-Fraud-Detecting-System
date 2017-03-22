@@ -27,6 +27,7 @@
 	<?php include 'helper/config.php' ?>
 
 	<div class="row m-r-0 m-l-0">
+		<!-- After submitting the form -->
 		<?php
 			if($_SERVER['REQUEST_METHOD'] == 'POST') {
 				// get data from form
@@ -62,6 +63,7 @@
 		?>
 	</div>
 
+	<!-- This part will show first -->
 	<div class="row">
 		<?php
 			if(isset($_SESSION['account'])) {
