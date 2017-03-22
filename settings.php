@@ -95,8 +95,24 @@
                         <div class="mini-container">
                             <div class="nice-border">
                                 <form method="POST" action="" class="form-group p-a-sm">
-                                    <label>Transaction Limit</label>
-                                    <input type="number" name="trans_limit" class="form-control" value="100" required/>
+                                    <label>Your Allowed Branches</label>
+                                    <div class="bg-list-item">
+                                        <span class="list-item">Dhaka</span>
+                                        <span class="list-item">Sylhet</span>
+                                        <span class="list-item">Tangail</span>
+                                        <span class="list-item">Uttara 2</span>
+                                    </div>
+                                    <br/>
+                                    <label>Set Allowed Branches</label>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">Option 1</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">Option 2</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio">Option 3</label>
+                                    </div>
                                     <br/>
                                     <input class="btn btn-info btn-block" type="submit" name="submit" value="Update"/>
                                 </form>
