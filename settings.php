@@ -48,6 +48,11 @@
                         echo '<p class="error-message">SORRY!! You can\'t set 0(Zero) here</p>';
                     }
                 }
+
+                // For updating branches
+                if($_SERVER['REQUEST_METHOD'] == 'GET') {
+                    echo $_GET['branch_pk'];
+                }
             ?>
 
             <div class="panel panel-info">
@@ -69,8 +74,10 @@
                             
                             // Work with account data
                             if($account_data->num_rows == 1) {
-                                $transaction_limit = $account_data->fetch_row()[1];
-                                // echo $transaction_limit;
+                                $temp_result = $account_data->fetch_row();
+                                $transaction_limit = $temp_result[1];
+                                // Temporary session
+                                $_SESSION['account_id'] = $temp_result[0];
                             }
                         }
                         echo '
@@ -80,7 +87,8 @@
                                     <form method="POST" action="" class="form-group p-a-sm">
                                         <label>Transaction Limit</label>
                                         <input type="hidden" name="user_id" value="'.$user_pk.'">
-                                        <input type="number" name="trans_limit" class="form-control" value="'.$transaction_limit.'" required/>
+                                        <input type="number" name="trans_limit" class="form-control" 
+                                            placeholder="Current limit : '.$transaction_limit.'" required/>
                                         <br/>
                                         <input class="btn btn-info btn-block" type="submit" name="submit" value="Update"/>
                                     </form>
@@ -91,33 +99,77 @@
                     </div>
 
                     <div class="col-sm-6 col-md-6">
-                        <p class="list-head">(*_*) Allowed Branches</p>
-                        <div class="mini-container">
-                            <div class="nice-border">
-                                <form method="POST" action="" class="form-group p-a-sm">
-                                    <label>Your Allowed Branches</label>
-                                    <div class="bg-list-item">
-                                        <span class="list-item">Dhaka</span>
-                                        <span class="list-item">Sylhet</span>
-                                        <span class="list-item">Tangail</span>
-                                        <span class="list-item">Uttara 2</span>
+
+                        <?php
+                            // A Function for producing string to array with desire formation
+                            function str_to_array($string) {
+                                $length = strlen($string);
+                                $branch_ids_str = substr($string, 1, $length-2);
+                                $branch_ids_list = array_map('intval', explode(" ", $branch_ids_str));
+
+                                return $branch_ids_list;
+                            }
+
+                            $branches_sql = "SELECT * FROM branch ORDER BY name";
+                            $account_id = $_SESSION['account_id'];
+                            $allowed_branches_sql = "SELECT * FROM credit_card WHERE account_id=".$account_id;
+                            
+                            // Execute queries
+                            $branches = $conn->query($branches_sql);
+                            $allowed_branches_data = $conn->query($allowed_branches_sql);
+                            if($allowed_branches_data->num_rows == 1) {
+                                $temp_result = $allowed_branches_data->fetch_row();
+                                $allowed_branches = $temp_result[1];
+                                $card_id = $temp_result[0];
+                                
+                                $branch_ids_list = str_to_array($allowed_branches);
+                                $branch_ids_list = implode("','",$branch_ids_list);
+                                
+                                $filtered_branches_sql = "SELECT * FROM branch WHERE id IN ('".$branch_ids_list."')";
+                                $filtered_branches_data = $conn->query($filtered_branches_sql);
+
+                            }
+
+                            
+
+                            echo '
+                                <p class="list-head">(*_*) Allowed Branches</p>
+                                <div class="mini-container">
+                                    <div class="nice-border">
+                                        <form method="GET" action="" class="form-group p-a-sm">
+                                            <label>Your Allowed Branches</label>
+                                            <div class="bg-list-item">
+                                ';
+
+                            while($row = $filtered_branches_data->fetch_assoc()) {
+                                echo '<span class="list-item">'.$row["name"].'</span>';
+                            }
+                            
+                            echo ' 
+                                            </div>
+                                            <br/>
+                                            <label>Set Allowed Branches</label>
+                                ';
+
+                            while($row = $branches->fetch_assoc()) {
+                                echo '
+                                    <div class="checkbox">
+                                        <label>
+                                            <input class="custom-checkbox" type="checkbox" name="branch_pk[]" value="'.$row["id"].'">
+                                            <span class="check-label">'.$row["name"].'</span>
+                                        </label>
                                     </div>
-                                    <br/>
-                                    <label>Set Allowed Branches</label>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio">Option 1</label>
+                                ';
+                            } 
+
+                            echo '
+                                            <br/>
+                                            <input class="btn btn-info btn-block" type="submit" name="submit" value="Update"/>
+                                        </form>
                                     </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio">Option 2</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio">Option 3</label>
-                                    </div>
-                                    <br/>
-                                    <input class="btn btn-info btn-block" type="submit" name="submit" value="Update"/>
-                                </form>
-                            </div>
-                        </div>
+                                </div>
+                            ';
+                        ?>
                     </div>
                 </div>
             </div>
