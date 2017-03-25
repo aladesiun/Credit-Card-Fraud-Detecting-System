@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2017 at 07:34 PM
+-- Generation Time: Mar 25, 2017 at 11:05 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -40,8 +40,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `user_id`, `branch_id`, `status`, `balance`, `trans_limit`) VALUES
-(1, 1, 1, 1, 10790, 5000),
-(2, 2, 2, 1, 740, 3000);
+(2, 1, 2, 1, 24200, 2000);
 
 -- --------------------------------------------------------
 
@@ -62,7 +61,10 @@ CREATE TABLE `branch` (
 INSERT INTO `branch` (`id`, `name`, `location`) VALUES
 (1, 'Dhaka', 'Uttara, Dhaka'),
 (2, 'Chittagong', 'Ctg main'),
-(3, 'Shylet', 'Mouluvi Bazar');
+(3, 'Shylet', 'Mouluvi Bazar'),
+(4, 'Mirpur, 10', 'Mirpur 10, Goal Chottor'),
+(5, 'Uttara, 2', 'Garib e Newaz Avinue'),
+(6, 'Gazipur', 'Tongi Gazipur');
 
 -- --------------------------------------------------------
 
@@ -83,9 +85,7 @@ CREATE TABLE `credit_card` (
 --
 
 INSERT INTO `credit_card` (`id`, `allowed_branches`, `ac_number`, `pin`, `account_id`) VALUES
-(1, '[1 2]', 1001, 1234, 1),
-(2, '[2]', 1002, 1234, 2),
-(3, '[3 1 2]', 1005, 1234, 2);
+(1, '[ 6 3 5]', 1001, 1234, 2);
 
 -- --------------------------------------------------------
 
@@ -105,11 +105,8 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`id`, `account_id`, `amount`, `created_at`) VALUES
-(3, 2, 300, '2017-02-25 06:04:46'),
-(4, 1, 200, '2017-02-25 06:06:10'),
-(5, 2, 25, '2017-02-25 06:09:20'),
-(6, 2, 10, '2017-02-25 06:13:29'),
-(7, 1, 200, '2017-03-02 17:57:13');
+(15, 2, 100, '2017-03-25 04:54:43'),
+(16, 2, 2000, '2017-03-25 04:56:19');
 
 -- --------------------------------------------------------
 
@@ -130,7 +127,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `status`) VALUES
-(2, 'Ashraful Islam', 'ashraful.py@gmail.com', '12345', 1);
+(1, 'Mr Tester', 'tester@gmail.com', '12345', 1);
 
 --
 -- Indexes for dumped tables
@@ -180,7 +177,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `credit_card`
 --
@@ -190,7 +187,7 @@ ALTER TABLE `credit_card`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `users`
 --
