@@ -50,8 +50,25 @@
                 }
 
                 // For updating branches
-                if($_SERVER['REQUEST_METHOD'] == 'GET') {
-                    echo $_GET['branch_pk'];
+                if($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['submit'] == 'Update') {
+                    $selected_array =  $_GET['branch_pk'];
+                    $array_len = sizeof($selected_array);
+                    
+                    $formated_string = "[";
+
+                    for($i=0; $i<$array_len; $i++) {
+                        $formated_string = $formated_string." ".$selected_array[$i];
+                    }
+                    $formated_string = $formated_string."]";
+                    $account_pk = $_SESSION['account_id'];
+
+                    $update_branch_sql = "UPDATE credit_card SET allowed_branches='".$formated_string."' WHERE account_id=".$account_pk;
+                    $updated_data = $conn->query($update_branch_sql);
+                    if($updated_data) {
+                        echo '<p class="success-message">Successfully set!!</p>';
+                    }else {
+                        '<p class="error-message">May be you are doing wrong<br>Contact with the Service Provider</p>';
+                    }
                 }
             ?>
 
