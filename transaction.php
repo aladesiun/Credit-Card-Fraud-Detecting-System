@@ -84,6 +84,7 @@
 								</div>
 								<div class="panel-body">
 									<form method="POST" action="" class="form-group">
+										<p>Available Balance: '.$row[4].'</p>
 										<label>Enter Amount</label>
 										<input type="number" name="amount" class="form-control" required/>
 										<input type="hidden" name="total_balance" value="'.$row[4].'"/>

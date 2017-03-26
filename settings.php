@@ -49,6 +49,19 @@
                     }
                 }
 
+                // To changing status
+                if($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['submit'] == 'Submit') {
+                    $status_code = $_GET['status'];
+                    $account_pk = $_SESSION['account_id'];
+                    $update_status_sql = "UPDATE credit_card SET status=".$status_code." WHERE account_id=".$account_pk;
+                    $updated_status = $conn->query($update_status_sql);
+                    if($updated_status) {
+                        echo '<p class="success-message">Successfully set!!</p>';
+                    }else {
+                        echo '<p class="error-message">May be you are doing wrong. Contact with the Service Provider</p>';
+                    }
+                }
+
                 // For updating branches
                 if($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['submit'] == 'Update') {
                     $selected_array =  $_GET['branch_pk'];
@@ -98,7 +111,7 @@
                             }
                         }
                         echo '
-                            <p class="list-head">(*_*) Per Transaction Limit</p>
+                            <p class="list-head">Per Transaction Limit</p>
                             <div class="mini-container">
                                 <div class="nice-border">
                                     <form method="POST" action="" class="form-group p-a-sm">
@@ -112,7 +125,47 @@
                                 </div>
                             </div>
                         ';
+
+                        echo "<br><br>";
+
+                        // Change Account Status
+                        $account_pk = $_SESSION['account_id'];
+                        $get_status_sql = "SELECT status FROM credit_card WHERE account_id=".$account_pk;
+                        $status_obj = $conn->query($get_status_sql);
+                        if($status_obj->num_rows == 1) {
+                            $status = $status_obj->fetch_row()[0];
+                        }
+                        echo '
+                            <p class="list-head">Change Status</p>
+                            <div class="mini-container">
+                                <div class="nice-border">
+                                    <form method="GET" action="" class="form-group p-a-sm">
+                                        <div class="checkbox">
+                                            <label>
+                        ';
+                        if($status == 0) {
+                            echo '
+                                <input class="custom-checkbox" type="checkbox" name="status" value="1">
+                                <span class="check-label">Active</span>
+                            ';
+                        }else {
+                            echo '
+                                <input class="custom-checkbox" type="checkbox" name="status" value="0">
+                                <span class="check-label">Blocked</span>
+                            ';
+                        }
+                        
+                        echo'                    </label>
+                                        </div>
+                                        <br/>
+                                        <input class="btn btn-info btn-block" type="submit" name="submit" value="Submit"/>
+                                    </form>
+                                </div>
+                            </div>
+                        ';
+
                         ?>
+
                     </div>
 
                     <div class="col-sm-6 col-md-6">
@@ -150,7 +203,7 @@
                             
 
                             echo '
-                                <p class="list-head">(*_*) Allowed Branches</p>
+                                <p class="list-head">Allowed Branches</p>
                                 <div class="mini-container">
                                     <div class="nice-border">
                                         <form method="GET" action="" class="form-group p-a-sm">

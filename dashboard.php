@@ -40,16 +40,32 @@
 			if($card_data->num_rows == 1){
 				$row = $card_data->fetch_row();
 				$allowed_branches = $row[1];
+				$ac_status = $row[5];
 
-				if(strpos($allowed_branches, $branch_id)) {
-					// echo '<p class="success-message">Successfully withdrawn :)</p>';
-					// set AC num and pin to session
-					$_SESSION['account'] = $card_number;
-					$_SESSION['account_id'] = $row[4];
-					header("Location: transaction.php");
+				if($ac_status == 1){
+					if(strpos($allowed_branches, $branch_id)) {
+						// set AC num and pin to session
+						$_SESSION['account'] = $card_number;
+						$_SESSION['account_id'] = $row[4];
+						header("Location: transaction.php");
+					}else {
+						echo '<p class="error-message">SORRY! This Branch is not Allowed!!</p>';
+						// Account will be locked now.
+						/*
+							0 = Block
+							1 = Active	
+						*/
+						$update_block_sql = "UPDATE credit_card SET status=0 WHERE ac_number=".$card_number;
+						$updated_block_status = $conn->query($update_block_sql);
+						if($updated_block_status) {
+							echo '<p class="error-message">Account will be blocked!!</p>';
+						}
+					}
 				}else {
-					echo '<p class="error-message">SORRY! This Branch is not Allowed!!</p>';
+					echo '<p class="error-message">Your account has blocked!!</p>';
 				}
+
+				
 			}
 			
 		}else {
