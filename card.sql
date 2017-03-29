@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2017 at 10:15 PM
+-- Generation Time: Mar 30, 2017 at 12:39 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -40,7 +40,28 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `user_id`, `branch_id`, `status`, `balance`, `trans_limit`) VALUES
-(2, 1, 2, 1, 23000, 2000);
+(2, 1, 2, 1, 22500, 2000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `block_history`
+--
+
+CREATE TABLE `block_history` (
+  `id` int(5) NOT NULL,
+  `account_id` int(5) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `branch_id` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `block_history`
+--
+
+INSERT INTO `block_history` (`id`, `account_id`, `created_at`, `branch_id`) VALUES
+(1, 2, '2017-03-29 17:39:59', 1),
+(2, 2, '2017-03-29 18:34:17', 4);
 
 -- --------------------------------------------------------
 
@@ -111,7 +132,8 @@ INSERT INTO `transaction` (`id`, `account_id`, `branch_id`, `amount`, `created_a
 (16, 2, 0, 2000, '2017-03-25 04:56:19'),
 (17, 2, 0, 500, '2017-03-29 15:51:21'),
 (18, 2, 5, 200, '2017-03-29 16:07:09'),
-(19, 2, 3, 300, '2017-03-29 16:07:57');
+(19, 2, 3, 300, '2017-03-29 16:07:57'),
+(20, 2, 6, 500, '2017-03-29 18:35:52');
 
 -- --------------------------------------------------------
 
@@ -142,6 +164,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `status`) VALUES
 -- Indexes for table `account`
 --
 ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `block_history`
+--
+ALTER TABLE `block_history`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -179,6 +207,11 @@ ALTER TABLE `users`
 ALTER TABLE `account`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `block_history`
+--
+ALTER TABLE `block_history`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
@@ -192,7 +225,7 @@ ALTER TABLE `credit_card`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `users`
 --
