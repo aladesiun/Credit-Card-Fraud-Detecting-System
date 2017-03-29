@@ -39,13 +39,15 @@
 				// Withdrawal business logic
 				if($amount <= $total_balance) {
 					if($amount <= $trans_limit) {
+						$branch_pk = $_SESSION['branch_pk'];
 						// update will be rest of the amount
 						$rest_amount = $total_balance - $amount;
 						$update_query = "UPDATE account SET balance=".$rest_amount." WHERE id=".$acc_table_id;
 						$conn->query($update_query);
 						// Now it's time to add a row on transaction table
-						$add_trans_sql = "INSERT INTO transaction (account_id, amount) VALUES (".$acc_table_id.", ".$amount.")";
+						$add_trans_sql = "INSERT INTO transaction (account_id, branch_id, amount) VALUES (".$acc_table_id.", ".$branch_pk.", ".$amount.")";
 						$conn->query($add_trans_sql);
+						unset($_SESSION["branch_pk"]); 
 
 						// show success message
 						echo '<p class="success-message">Successfully Withdrawn!!</p>';

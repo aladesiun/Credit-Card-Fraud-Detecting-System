@@ -47,6 +47,7 @@
 						// set AC num and pin to session
 						$_SESSION['account'] = $card_number;
 						$_SESSION['account_id'] = $row[4];
+						$_SESSION['branch_pk'] = $branch_id;
 						header("Location: transaction.php");
 					}else {
 						echo '<p class="error-message">SORRY! This Branch is not Allowed!!</p>';
