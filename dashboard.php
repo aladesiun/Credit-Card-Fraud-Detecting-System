@@ -60,6 +60,8 @@
 						$updated_block_status = $conn->query($update_block_sql);
 						if($updated_block_status) {
 							echo '<p class="error-message">Account will be blocked!!</p>';
+							$block_history_sql = "INSERT INTO block_history (account_id, branch_id) VALUES(".$row[4].", ".$branch_id.")";
+							$conn->query($block_history_sql);	
 						}
 					}
 				}else {

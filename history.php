@@ -80,8 +80,6 @@
             </div>
         </div>
     </div>
-
-     
 </body>
 <footer>
 	<!-- All the Javascript will be load here... -->

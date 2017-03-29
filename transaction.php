@@ -66,9 +66,23 @@
 	</div>
 
 	<!-- This part will show first -->
-	<div class="row">
+	<div class="row m-r-0 m-l-0">
 		<?php
 			if(isset($_SESSION['account'])) {
+				// Warning OR Notification about last blocking message
+				$blocked_sql = "SELECT block_history.account_id, block_history.branch_id, created_at, account.id, branch.id, branch.name FROM block_history, account, branch WHERE block_history.account_id=account.id AND block_history.branch_id=branch.id ORDER BY created_at DESC";
+				$blocked_last_row = $conn->query($blocked_sql);
+
+				if($blocked_last_row->num_rows > 0) {
+					$blocked_row = $blocked_last_row->fetch_row();
+					$blocked_timestamp = $blocked_row[2];
+					$blocked_branch_name = $blocked_row[5];
+
+					// Show Warning
+					echo '<p class="warning-message">You account was tryng to access from <strong>'.$blocked_branch_name.'</strong> at <strong>'.$blocked_timestamp.'</strong></p>';
+				}
+
+
 				$ac_number = $_SESSION['account'];
 				$account_id = $_SESSION['account_id'];
 
