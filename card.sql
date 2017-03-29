@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2017 at 11:05 AM
+-- Generation Time: Mar 29, 2017 at 10:15 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -40,7 +40,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `user_id`, `branch_id`, `status`, `balance`, `trans_limit`) VALUES
-(2, 1, 2, 1, 24200, 2000);
+(2, 1, 2, 1, 23000, 2000);
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `branch` (
 INSERT INTO `branch` (`id`, `name`, `location`) VALUES
 (1, 'Dhaka', 'Uttara, Dhaka'),
 (2, 'Chittagong', 'Ctg main'),
-(3, 'Shylet', 'Mouluvi Bazar'),
+(3, 'Sylhet', 'Mouluvi Bazar'),
 (4, 'Mirpur, 10', 'Mirpur 10, Goal Chottor'),
 (5, 'Uttara, 2', 'Garib e Newaz Avinue'),
 (6, 'Gazipur', 'Tongi Gazipur');
@@ -77,15 +77,16 @@ CREATE TABLE `credit_card` (
   `allowed_branches` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `ac_number` int(16) NOT NULL,
   `pin` int(4) NOT NULL,
-  `account_id` int(5) NOT NULL
+  `account_id` int(5) NOT NULL,
+  `status` int(2) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `credit_card`
 --
 
-INSERT INTO `credit_card` (`id`, `allowed_branches`, `ac_number`, `pin`, `account_id`) VALUES
-(1, '[ 6 3 5]', 1001, 1234, 2);
+INSERT INTO `credit_card` (`id`, `allowed_branches`, `ac_number`, `pin`, `account_id`, `status`) VALUES
+(1, '[ 6 3 5]', 1001, 1234, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -96,6 +97,7 @@ INSERT INTO `credit_card` (`id`, `allowed_branches`, `ac_number`, `pin`, `accoun
 CREATE TABLE `transaction` (
   `id` int(5) NOT NULL,
   `account_id` int(5) NOT NULL,
+  `branch_id` int(5) NOT NULL,
   `amount` int(5) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -104,9 +106,12 @@ CREATE TABLE `transaction` (
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `account_id`, `amount`, `created_at`) VALUES
-(15, 2, 100, '2017-03-25 04:54:43'),
-(16, 2, 2000, '2017-03-25 04:56:19');
+INSERT INTO `transaction` (`id`, `account_id`, `branch_id`, `amount`, `created_at`) VALUES
+(15, 2, 0, 100, '2017-03-25 04:54:43'),
+(16, 2, 0, 2000, '2017-03-25 04:56:19'),
+(17, 2, 0, 500, '2017-03-29 15:51:21'),
+(18, 2, 5, 200, '2017-03-29 16:07:09'),
+(19, 2, 3, 300, '2017-03-29 16:07:57');
 
 -- --------------------------------------------------------
 
@@ -182,17 +187,17 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `credit_card`
 --
 ALTER TABLE `credit_card`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
