@@ -71,7 +71,7 @@
 			if(isset($_SESSION['account'])) {
 				$account_pk = $_SESSION['account_id'];
 				// Warning OR Notification about last blocking message
-				$blocked_sql = "SELECT block_history.account_id, block_history.branch_id, created_at, branch.id, branch.name as branch_name FROM block_history, branch WHERE block_history.account_id=".$account_pk." AND block_history.branch_id=branch.id ORDER BY created_at";
+				$blocked_sql = "SELECT block_history.account_id, block_history.branch_id, created_at, branch.id, branch.name as branch_name FROM block_history, branch WHERE block_history.account_id=".$account_pk." AND block_history.branch_id=branch.id ORDER BY created_at DESC";
 				
 				$blocked_last_row = $conn->query($blocked_sql);
 
