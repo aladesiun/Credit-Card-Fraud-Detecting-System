@@ -34,6 +34,9 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <p class="text-22px text-center">Transaction History</p>
+                    <?php
+                   echo $_SESSION['username']
+                   ?>
                 </div>
                 <div class="panel-body">
                     <table class="table">
@@ -48,6 +51,9 @@
                             $account_data = $conn->query($get_account_sql);
                             if($account_data->num_rows == 1) {
                                 $account_pk = $account_data->fetch_row()[0];
+                            }else {
+                                echo '<p class="text-center">'.$email.' Has no account yet, Create an account first </p>';
+                                return;
                             }
 
                             $sql = "SELECT transaction.account_id, transaction.amount, transaction.branch_id, created_at, account.id, account.user_id, users.id, users.name AS user_name, branch.id, branch.name AS branch_name FROM transaction, account, users, branch WHERE transaction.account_id=".$account_pk." AND account.user_id=".$user_pk." AND branch.id=transaction.branch_id AND users.id=".$user_pk." ORDER BY transaction.id";

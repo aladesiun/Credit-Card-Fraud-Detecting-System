@@ -53,7 +53,7 @@
                 if($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['submit'] == 'Submit') {
                     $status_code = $_GET['status'];
                     $account_pk = $_SESSION['account_id'];
-                    $update_status_sql = "UPDATE credit_card SET status=".$status_code." WHERE account_id=".$account_pk;
+                    $update_status_sql = "UPDATE credit_card  SET status = " . $status_code . ", attempt = 0  WHERE account_id = " . $account_pk;
                     $updated_status = $conn->query($update_status_sql);
                     if($updated_status) {
                         echo '<p class="success-message">Successfully set!!</p>';

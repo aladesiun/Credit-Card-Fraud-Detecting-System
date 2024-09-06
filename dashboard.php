@@ -56,12 +56,25 @@
 							0 = Block
 							1 = Active	
 						*/
-						$update_block_sql = "UPDATE credit_card SET status=0 WHERE ac_number=".$card_number;
-						$updated_block_status = $conn->query($update_block_sql);
-						if($updated_block_status) {
-							echo '<p class="error-message">Account will be blocked!!</p>';
-							$block_history_sql = "INSERT INTO block_history (account_id, branch_id) VALUES(".$row[4].", ".$branch_id.")";
-							$conn->query($block_history_sql);	
+						// check if user account attempt is not greater 2 
+						$check_attempt_sql = "SELECT * FROM credit_card WHERE ac_number=".$card_number;
+						$check_attempt_status = $conn->query($check_attempt_sql);
+						if($check_attempt_status) {
+							$attempt_counter = $check_attempt_status->fetch_row();
+							// increase attempt count
+							$update_attempt_sql = "UPDATE credit_card SET attempt= $attempt_counter[6] +1 WHERE ac_number=".$card_number;
+							$updated_attempt_status = $conn->query($update_attempt_sql);
+
+							// now check attempt
+							if($attempt_counter[6] > 0){
+								$update_block_sql = "UPDATE credit_card SET status=0 WHERE ac_number=".$card_number;
+								$updated_block_status = $conn->query($update_block_sql);
+								if($updated_block_status) {
+									echo '<p class="error-message">Account has been blocked!!</p>';
+									$block_history_sql = "INSERT INTO block_history (account_id, branch_id) VALUES(".$row[4].", ".$branch_id.")";
+									$conn->query($block_history_sql);	
+								}
+							}
 						}
 					}
 				}else {

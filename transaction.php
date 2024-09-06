@@ -81,7 +81,7 @@
 					$blocked_branch_name = $blocked_row[4];
 
 					// Show Warning
-					echo '<p class="warning-message">You account was tryng to access from <strong>'.$blocked_branch_name.'</strong> at <strong>'.$blocked_timestamp.'</strong></p>';
+					echo '<p class="warning-message">An attempt was made to access your  account from <strong>'.$blocked_branch_name.'</strong> branch at <strong>'.$blocked_timestamp.'</strong></p>';
 				}
 
 
